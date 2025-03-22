@@ -17,7 +17,7 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(user_id)
 
-@app.route('/login', methods=["POST"])
+@app.route('/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get("username")
@@ -39,8 +39,21 @@ def logout():
     logout_user()
     return jsonify({"message": "Logout realizado com sucesso"}), 200
 
+@app.route('/user', methods=['POST'])
+@login_required
+def create_user():
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
 
+    if username and password:
+        user = User(username=username, password=password)
+        db.session.add(user)
+        db.session.commit()
 
+        return jsonify({"message": "Usuário cadastrado com sucesso"}), 201
+
+    return jsonify({"message": "Dados inválidos"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)

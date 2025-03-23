@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, current_user, logout_user, log
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:admin123@127.0.0.1:3306/flask-crud'
 
 login_manager = LoginManager()
 db.init_app(app) 
@@ -40,7 +40,7 @@ def logout():
     return jsonify({"message": "Logout realizado com sucesso"}), 200
 
 @app.route('/user', methods=['POST'])
-@login_required
+# @login_required
 def create_user():
     data = request.json
     username = data.get("username")
@@ -95,7 +95,6 @@ def delete_user(id_user):
         return jsonify({"message": f"Usuário {id_user} deletado com sucesso"}), 200
     
     return jsonify({"message": "Usuário não encontrado"}), 404
-
 
 
 if __name__ == '__main__':

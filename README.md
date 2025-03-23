@@ -68,4 +68,4 @@ Este sistema permite que os usuários se registrem, façam login e acessem pági
 
 ---
 
-Feito com ❤️ por [Seu Nome]
+Feito com ❤️ por Victor
